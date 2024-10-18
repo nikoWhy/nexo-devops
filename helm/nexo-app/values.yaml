@@ -1,0 +1,12 @@
+postgres:
+  enabled: true
+  username: postgres
+  password: bXlzZWNyZXRwYXNzd29yZA==
+  storageSize: 2Gi
+  replicaCount: 1
+  image: postgres:17.0-bookworm
+
+app:
+  replicaCount: 1
+  image: ilniko/nexo-devops:585e93d3138c5cadee3c58319ac277f645d810d9
+  containerPort: 8000

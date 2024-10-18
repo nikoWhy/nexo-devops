@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexo-deployment
+  labels:
+    app: nexo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexo
+  template:
+    metadata:
+      labels:
+        app: nexo
+    spec:
+      containers:
+      - name: nexo
+        image: ilniko/nexo-devops:585e93d3138c5cadee3c58319ac277f645d810d9
+        ports:
+        - containerPort: 8000
+        envFrom:
+            - configMapRef:
+                name: postgres-config
+        env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              value: "postgres"
